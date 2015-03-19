@@ -7,7 +7,7 @@
 @using (Html.BeginForm())
 {
 <br />
-<div style="width:850px">
+<div style="width:auto">
     @Html.Label("emplloyee  ID =   ")
     @Html.Label(Session["EmpID"].ToString())
     @Html.Label("order  ID =   ")
@@ -18,7 +18,7 @@
 </div>
 <br />
     <table id="OrderDisplayTable" border="1" width="850">
-        <tr id="DisplayHeader">
+        <tr id="DisplayHeader" style="background-color:#3A597A; color:white">
             <td>
                 @Html.Label("Order Date")
             </td>
@@ -27,15 +27,15 @@
             </td>
             <td>
                 @Html.Label("Current Status")
-            </td>        
+            </td>
             <td>
                 @Html.Label("Set New Status")
             </td>
             <td>
                 @Html.Label("Discripotion")
-            </td>   
-            <td></td>  
-            <td></td>   
+            </td>
+            <td></td>
+            <td></td>
         </tr>
         <tr id="DisplayData">
             <td>
@@ -54,7 +54,7 @@
                <textarea id="TxtAreaDisc" rows="5" cols="50" maxlength="250"></textarea>
             </td>
             <td>
-                <button id="saveChangebtn" type="submit" class="btn-success">Save Changes</button>
+                <button id="saveChangebtn" type="submit" class="btn btn-info">Save Changes</button>
             </td> 
             <td>
                 @Html.ActionLink("Back To Orders", "OrderIndex")

@@ -23,6 +23,7 @@ namespace PharmacyManagmentSystem
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-spacelab.min.css",
+                      "~/Content/mainStyle.css",
                       "~/Content/site.css"));
         }
     }

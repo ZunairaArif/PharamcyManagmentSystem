@@ -2,78 +2,91 @@
 @{
     ViewBag.Title = "LoadCategory";
 }
-<h2>Order Details</h2>
+<center>
+   
+    <h2>Order Details</h2>
 
-@using (Html.BeginForm())
-{
-     WebGrid grid=new WebGrid(Model ,canPage:false);
-    <br />
-    <div style="width:350px">
-       
-        @Html.Label("emplloyee  ID =   ")
-        @Html.Label(Session["EmpID"].ToString())
-        @Html.Label("  order  ID =   ")
-        @Html.Label(Session["OrderID"].ToString())
-        @Html.Label("   Date =   ")
-        @Html.Label(DateTime.Today.Date.ToString())
+    @using (Html.BeginForm())
+    {
+        WebGrid grid = new WebGrid(Model, canPage: false);
         <br />
-    </div>
-    <br />
-    
-<div id="AddNewProductDIV">
-@if (ViewData.ContainsKey("Category"))
-{ 
-        <div>
-            @Html.Label("select Category")
 
-            @if (ViewData.ContainsKey("Category"))
-            {
-                @Html.DropDownList("Category", ViewData["Category"] as List<SelectListItem>, "Please select a Category", new { style = "width:250px", @class = "dropdown1" })
-                <label id="ErrorLblCategory"></label>
-            }
-        </div>
-        <br />
-        <div>
-            @Html.Label("select Product")
-            @Html.DropDownList("Product", new SelectList(string.Empty, "Value", "Text"), "Please select a product", new { style = "width:250px", @class = "dropdown1" })
-            <label id="ErrorLblProduct"></label>
-        </div>
-        <br />
-        <div>
-            @Html.Label("select Product size")
-            @Html.DropDownList("ProductSize", new SelectList(string.Empty, "Value", "Text"), "Please select Product Size", new { style = "width:250px", @class = "dropdown1" })
-            <label id="ErrorLblProductSize"></label>
-            <label id="Unit">Unit</label>
-        </div>
-        <br />
-        <div>
-            @Html.Label("select Supplier")
-            @Html.DropDownList("Supplier", new SelectList(string.Empty, "Value", "Text"), "Please select Suplier", new { style = "width:250px", @class = "dropdown1" })
-            <label id="ErrorLblSupplier"></label>
-        </div>
-        <br />
-        <div>
-            @Html.Label("Quantity")
-            <input id="QuantityTextbox" type="number" value="" />
-            <label id="ErrorLblQuantity"></label>
-        </div>
-        <br />
-        <div>
-            <button id="AddProductBtn" name="AddProductBtn">Save Product </button>
+        <div style="width:auto">
 
+            @Html.Label("emplloyee  ID =   ")
+            @Html.Label(Session["EmpID"].ToString())
+            @Html.Label("  order  ID =   ")
+            @Html.Label(Session["OrderID"].ToString())
+            @Html.Label("   Date =   ")
+            @Html.Label(DateTime.Today.Date.ToString())
             <br />
         </div>
-}
-    </div>
-  
-      <div  id ="OrderDetails" class=" form-horizontal"  style="width:850px">
-        @Html.ActionLink("Back To Orders", "OrderIndex")
-        <br/>
-        @Html.Label("Ordered Items Detail")
+
         <br />
-          <div id="OrderItem" style="align-content:center;width:inherit;background-color:lightgoldenrodyellow;">
-              @grid.GetHtml(
-                tableStyle: "table",
+    <div class="modal-content" style="width:50%">
+        <br/>
+        <div id="AddNewProductDIV">
+            @if (ViewData.ContainsKey("Category"))
+            {
+                <div>
+                    @Html.Label("select Category")
+
+                    @if (ViewData.ContainsKey("Category"))
+                    {
+                        @Html.DropDownList("Category", ViewData["Category"] as List<SelectListItem>, "Please select a Category", new { style = "width:250px", @class = "dropdown1" })
+                        <label id="ErrorLblCategory"></label>
+                    }
+                </div>
+                <br />
+                <div>
+                    @Html.Label("select Product")
+                    @Html.DropDownList("Product", new SelectList(string.Empty, "Value", "Text"), "Please select a product", new { style = "width:250px", @class = "dropdown1" })
+                    <label id="ErrorLblProduct"></label>
+                </div>
+                <br />
+                <div>
+                    @Html.Label("select Product size")
+                    @Html.DropDownList("ProductSize", new SelectList(string.Empty, "Value", "Text"), "Please select Product Size", new { style = "width:250px", @class = "dropdown1" })
+                    <label id="ErrorLblProductSize"></label>
+                    <label id="Unit">Unit</label>
+                </div>
+                <br />
+                <div>
+                    @Html.Label("select Supplier")
+                    @Html.DropDownList("Supplier", new SelectList(string.Empty, "Value", "Text"), "Please select Suplier", new { style = "width:250px", @class = "dropdown1" })
+                    <label id="ErrorLblSupplier"></label>
+                </div>
+                <br />
+                <div>
+                    @Html.Label("Quantity")
+                    <input id="QuantityTextbox" type="number" value="" />
+                    <label id="ErrorLblQuantity"></label>
+                </div>
+                <br />
+                <div>
+                    <button class="btn btn-info" id="AddProductBtn" name="AddProductBtn">Save Product </button>
+
+                    <br />
+                </div>
+
+            }
+
+        </div>
+        <br/>
+    </div>
+        <br/>
+        <br />
+
+
+        <div id="OrderDetails" class=" form-horizontal" style="width:850px;">
+            @Html.ActionLink("Back To Orders", "OrderIndex")
+            <br />
+            <br />
+            @Html.Label("Ordered Items Detail")
+            <br />
+            <div id="OrderItem" style="align-content:center;width:inherit; float:left">
+                @grid.GetHtml(
+             tableStyle: "table table-striped table-bordered table-condensed",
                 headerStyle: "header",
                columns:
                grid.Columns
@@ -83,14 +96,17 @@
                grid.Column("Size", "Size"),
                grid.Column("SupplierName", "Supplier"),
                grid.Column("Quantity", "Quantity"),
-               grid.Column(format: @<a href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID">Delete</a>)
-              ),mode: WebGridPagerModes.Numeric)
-          </div>
+               grid.Column(format: @<a class="btn btn-default" href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID">Delete</a>)
+  ), mode: WebGridPagerModes.Numeric)
+            </div>
 
-       
-        <div id="ResultArea"> </div>
-    </div>
-}
+
+            <div id="ResultArea"> </div>
+        </div>
+
+    }
+</center>
+
 <script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
 @*/////////////////////////////  getting data in cascading dropdowns\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
