@@ -128,6 +128,17 @@
           <Property Name="statusName" Type="varchar" MaxLength="45" />
           <Property Name="statusDiscription" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="pharmacylog">
+          <Key>
+            <PropertyRef Name="pharmacyLogId" />
+          </Key>
+          <Property Name="pharmacyLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="45" />
+          <Property Name="tableName" Type="varchar" MaxLength="45" />
+          <Property Name="actionPerformed" Type="varchar" MaxLength="45" />
+          <Property Name="date" Type="datetime" Precision="0" />
+          <Property Name="Discription" Type="varchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="product">
           <Key>
             <PropertyRef Name="productId" />
@@ -510,6 +521,7 @@
           <EntitySet Name="orderdetail" EntityType="Self.orderdetail" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="orderhistory" EntityType="Self.orderhistory" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="orderstatus" EntityType="Self.orderstatus" Schema="pharmacy" store:Type="Tables" />
+          <EntitySet Name="pharmacylog" EntityType="Self.pharmacylog" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="productdetails" EntityType="Self.productdetails" Schema="pharmacy" store:Type="Tables" />
           <EntitySet Name="productsupplied" EntityType="Self.productsupplied" Schema="pharmacy" store:Type="Tables" />
@@ -1253,6 +1265,7 @@
             <End Role="productsupplied" EntitySet="productsupplieds" />
             <End Role="orderdetail" EntitySet="orderdetails" />
           </AssociationSet>
+          <EntitySet Name="pharmacylogs" EntityType="pharmacyModel.pharmacylog" />
           </EntityContainer>
         <Association Name="fk_OrderDetail_Order1">
           <End Type="pharmacyModel.order" Role="order" Multiplicity="1" />
@@ -1278,6 +1291,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="pharmacylog">
+          <Key>
+            <PropertyRef Name="pharmacyLogId" />
+          </Key>
+          <Property Name="pharmacyLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="tableName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="actionPerformed" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" />
+          <Property Name="Discription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1506,6 +1530,18 @@
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="enabled" ColumnName="enabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pharmacylogs">
+            <EntityTypeMapping TypeName="pharmacyModel.pharmacylog">
+              <MappingFragment StoreEntitySet="pharmacylog">
+                <ScalarProperty Name="Discription" ColumnName="Discription" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="actionPerformed" ColumnName="actionPerformed" />
+                <ScalarProperty Name="tableName" ColumnName="tableName" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="pharmacyLogId" ColumnName="pharmacyLogId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

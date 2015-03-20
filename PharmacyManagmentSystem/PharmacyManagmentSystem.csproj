@@ -193,6 +193,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>pharmacy.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\pharmacylog.cs">
+      <DependentUpon>pharmacy.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\product.cs">
       <DependentUpon>pharmacy.tt</DependentUpon>
     </Compile>

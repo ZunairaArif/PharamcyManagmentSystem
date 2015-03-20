@@ -58,8 +58,7 @@ namespace PharmacyManagmentSystem.Controllers
         {
             pdal.SaveItem(id);
             int? orderID = int.Parse(this.Session["OrderID"].ToString());
-            return RedirectToAction("LoadCategory/" + orderID);
-        
+            return RedirectToAction("ReciveOrder/" + orderID);        
         }
         public ActionResult ReciveOrder(int? id)
         {
