@@ -63,8 +63,8 @@
                                  grid.Column("orderDate", "Date"),
                                  grid.Column("orderstatu.statusName", "Status"),
                                  grid.Column(format: @<a class="btn btn-info" href="~/OrderAndHistory/Edit?id=@item.orderId">Edit</a>),
-                                 grid.Column(format: @<a href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>),
-                                 grid.Column(format: @<a href="~/OrderAndHistory/ReciveOrder?id=@item.orderId">Recive Order</a>)
+                                 grid.Column(format: @<a class="btn btn-primary" href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>),
+                                 grid.Column(format: @<a class="btn btn-info" href="~/OrderAndHistory/ReciveOrder?id=@item.orderId">Recive Order</a>)
 ), mode: WebGridPagerModes.Numeric)
                             </div>
                         </center>

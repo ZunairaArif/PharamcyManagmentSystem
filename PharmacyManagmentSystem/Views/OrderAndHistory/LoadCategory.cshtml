@@ -97,8 +97,8 @@
                grid.Column("Size", "Size"),
                grid.Column("SupplierName", "Supplier"),
                grid.Column("Quantity", "Quantity"),
-               grid.Column(header:"Delete",format: @<a href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID" onclick="javascript:return ConfirmDelete();">Delete</a>)
-              ),mode: WebGridPagerModes.Numeric)
+               grid.Column(header:"Delete",format: @<a class="btn btn-default" href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID" onclick="javascript:return ConfirmDelete();">Delete</a>)
+       ), mode: WebGridPagerModes.Numeric)
             </div>
          
 
