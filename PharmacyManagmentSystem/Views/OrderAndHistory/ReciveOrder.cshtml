@@ -16,9 +16,9 @@
     <br />
    
     <div>
-        <div id="OrderGrid2" style="align-content:center;width:inherit;background-color:lightgoldenrodyellow;">
+        <div id="OrderGrid2" style="align-content:center;width:inherit">
             @grid.GetHtml(
-                tableStyle: "table",
+             tableStyle: "table table-striped table-bordered table-condensed",
                 headerStyle: "header",
                columns: grid.Columns
                (grid.Column("Id", "Sr. No"),
@@ -32,7 +32,7 @@
                grid.Column(header: "Reciveing Date", format: @<input id="recivingDate" type="date" style="width:100%" /> ),
                grid.Column(header: "Expire Date", format: @<input id="expireyDate" type="date" style="width:100%" /> ),
                grid.Column(header: "Batch No", format: @<input id="batchNo" type="text"  style="width:100%" /> ),
-               grid.Column(header:"Save Item",format: @<a href="~/OrderAndHistory/SaveItem?id=@item.P_o_ID">Save</a>)
+               grid.Column(header:"Save Item",format: @<a class="btn btn-info" href="~/OrderAndHistory/SaveItem?id=@item.P_o_ID">Save</a>)
                ), mode: WebGridPagerModes.Numeric)
         </div>
     </div>
