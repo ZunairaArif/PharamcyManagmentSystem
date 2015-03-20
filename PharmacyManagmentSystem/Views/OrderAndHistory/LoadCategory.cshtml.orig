@@ -7,7 +7,7 @@
     <h2>Order Details</h2>
 
     @using (Html.BeginForm())
-{
+    {
         WebGrid grid = new WebGrid(Model, canPage: false);
         <br />
 
@@ -87,7 +87,6 @@
             <div id="OrderItem" style="align-content:center;width:inherit; float:left">
                 @grid.GetHtml(
              tableStyle: "table table-striped table-bordered table-condensed",
-                alternatingRowStyle: "alt",
                 headerStyle: "header",
                columns:
                grid.Columns
@@ -97,10 +96,9 @@
                grid.Column("Size", "Size"),
                grid.Column("SupplierName", "Supplier"),
                grid.Column("Quantity", "Quantity"),
-               grid.Column(header:"Delete",format: @<a href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID" onclick="javascript:return ConfirmDelete();">Delete</a>)
-              ),mode: WebGridPagerModes.Numeric)
+               grid.Column(format: @<a class="btn btn-default" href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID">Delete</a>)
+  ), mode: WebGridPagerModes.Numeric)
             </div>
-         
 
 
             <div id="ResultArea"> </div>
@@ -195,21 +193,10 @@
                 type: 'POST', url: '@Url.Action("AddOrderDetail")', dataType: 'json',
                 data: { ProductSuppliedID: $('#ProductSize :selected').val(), SupplierID: $('#Supplier :selected').val(), quantity: $("#QuantityTextbox").val() },
                 success: function (supplierz) {
-                    location.reload();  
-                    //$("#OrderDetails").load("#OrderItemDiv");
+                    location.reload();                                    
                 },
                 error: function (ex) { alert("Record not saved"); }
             });
            }        
     });
-    function ConfirmDelete() {
-        var status = ('@ViewData["C_O_S"]');     
-        if (status == "Draft") {
-            return confirm("Are you sure you want to delete this Item?");
-        }
-        else {
-            return false;
-        }
-        
-    }
 </script>

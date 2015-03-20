@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7f330a549fbd42d6b6a8859dfbd6e316" Name="Diagram1" ZoomLevel="108">
+      <Diagram DiagramId="7f330a549fbd42d6b6a8859dfbd6e316" Name="Diagram1" ZoomLevel="24">
         <EntityTypeShape EntityType="pharmacyModel.authority" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.borrowlend" Width="1.5" PointX="15" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.borrowlendstock" Width="1.5" PointX="17.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.category" Width="1.5" PointX="1.5" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.department" Width="1.5" PointX="3.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="pharmacyModel.designation" Width="1.5" PointX="3.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="pharmacyModel.designation" Width="1.5" PointX="3.25" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.employee" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.employerstock" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="pharmacyModel.order" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
@@ -50,7 +50,7 @@
         <AssociationConnector Association="pharmacyModel.fk_StockSales_Stock1" ManuallyRouted="false" />
         <AssociationConnector Association="pharmacyModel.fk_OrderDetail_Order1" />
         <AssociationConnector Association="pharmacyModel.fk_OrderDetail_ProductSupplied1" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

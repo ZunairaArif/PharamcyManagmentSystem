@@ -1253,7 +1253,7 @@
             <End Role="productsupplied" EntitySet="productsupplieds" />
             <End Role="orderdetail" EntitySet="orderdetails" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <Association Name="fk_OrderDetail_Order1">
           <End Type="pharmacyModel.order" Role="order" Multiplicity="1" />
           <End Type="pharmacyModel.orderdetail" Role="orderdetail" Multiplicity="*" />
@@ -1278,7 +1278,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1509,7 +1509,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -58,19 +58,20 @@
                 headerStyle: "header",
                columns:
                                 grid.Columns
-                             (grid.Column("orderId", "Order ID"),
-                                grid.Column("employee.firstName", "Name"),
+                                (grid.Column("employee.firstName", "Name"),
                                  grid.Column("orderDate", "Date"),
                                  grid.Column("orderstatu.statusName", "Status"),
                                  grid.Column(format: @<a class="btn btn-info" href="~/OrderAndHistory/Edit?id=@item.orderId">Edit</a>),
-                                 grid.Column(format: @<a href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>),
-                                 grid.Column(format: @<a href="~/OrderAndHistory/ReciveOrder?id=@item.orderId">Recive Order</a>)
+                                 grid.Column(format: @<a class="btn btn-primary" href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>)
 ), mode: WebGridPagerModes.Numeric)
                             </div>
                         </center>
 
                         
+                           
+
                     </div>
+
                 }
 
 
