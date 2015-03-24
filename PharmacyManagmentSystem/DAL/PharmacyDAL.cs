@@ -117,12 +117,13 @@ namespace PharmacyManagmentSystem.DAL
         #endregion 
 
         #region Order-Part
-        public void AddNewOrder(DateTime newdate, int id)
+        public void AddNewOrder(DateTime newdate, int id,string ordernumber)
         {
             order neworder = new order();
             neworder.orderDate = newdate;
             neworder.orderStatusId = 1;
             neworder.empId = id;
+            neworder.orderNumber = ordernumber;
             db.orders.Add(neworder);
             db.SaveChanges();
             AddOrderHistory("Draft", "New Order creation", neworder.orderId, id,newdate);
@@ -151,15 +152,13 @@ namespace PharmacyManagmentSystem.DAL
         }
        
         public List<OrderTableStructure> GetOrderDetails(int? orderID)
-        {  //List<OrderTableStructure> list =new List<OrderTableStructure>() ;
-            //List<int> productOrderIdz=new List<int>();
+        { 
             List<int>  productSuppliedIdz=new List<int>();
             OrderTableStructure ordertable=new OrderTableStructure();
             var data = db.orderdetails.Where(p => p.orderId == orderID);
             foreach (orderdetail po in data)
             {
-                productSuppliedIdz.Add(po.productSuppliedId);
-                //productOrderIdz.Add(po.productsOrderdId);
+                productSuppliedIdz.Add(po.productSuppliedId);              
             }
             data = null;
             List<OrderTableStructure> list = new List<OrderTableStructure>();
@@ -220,17 +219,199 @@ namespace PharmacyManagmentSystem.DAL
         {
            orderdetail OD = db.orderdetails.Find(id);
            db.orderdetails.Remove(OD);
-           db.SaveChanges();
-           int i = 0;        
+           db.SaveChanges();           
         }
 
-        public void SaveItem(int id)
-        { 
-        
+        public void SaveItem(int id,int empID)
+        {
+           
         }
 
         #endregion
-       
+
+        #region recive Order
+        public List<OrderReciveStructure> OrderReciveDisplay( int? orderID)
+        {   List<OrderReciveStructure> list = new List<OrderReciveStructure>();
+            List<int> productSuppliedIdz = new List<int>();
+            OrderReciveStructure  ordertable = new OrderReciveStructure();
+            var data = db.orderdetails.Where(p => p.orderId == orderID);
+            foreach (orderdetail po in data)
+            {
+                productSuppliedIdz.Add(po.productSuppliedId);
+            }
+            data = null;
+            for (int idz = 0; idz < productSuppliedIdz.Count; idz++)
+            {
+                #region order placed part
+                ordertable = new OrderReciveStructure();
+                ordertable.SrNo = idz + 1;
+                int O_ID = (int)orderID;
+                int proSupID = productSuppliedIdz[idz];
+                var qun = db.orderdetails.Where(p => p.productSuppliedId == proSupID && p.orderId == O_ID).SingleOrDefault();
+                ordertable.QuantityOrderd = qun.quantityOrderd;
+                ordertable.OrderDetailID  = qun.orderDetailId;
+                qun = null;
+                int PSid = productSuppliedIdz[idz];
+                var sup = db.productsupplieds.Where(s => s.productSuppliedId == PSid).SingleOrDefault();
+                int suplierId = sup.supplierId;
+                int productdetailId = sup.productDetailId;
+                sup = null;
+                var supname = db.suppliers.Where(s => s.supplierId == suplierId).FirstOrDefault();
+                ordertable.SupplierName = supname.supplierName;
+                supname = null;
+                var proSize = db.productdetails.Where(p => p.productDetailId == productdetailId).SingleOrDefault();
+                ordertable.Size = proSize.productSize;
+                int PNid = proSize.productId;
+                proSize = null;
+                var proName = db.products.Where(p => p.productId == PNid).SingleOrDefault();
+                ordertable.ProductName1 = proName.productName;
+                int catID = proName.categoryId;
+                proName = null;
+                var cat = db.categories.Where(c => c.categoryId == catID).SingleOrDefault();
+                ordertable.CategoryName = cat.categoryName;
+                cat = null;
+                #endregion 
+
+                #region Order Details
+                int ODID= ordertable.OrderDetailID;
+               var RecivedItemlist = db.orderdetails.Where(o => o.orderDetailId == ODID).FirstOrDefault();
+               if (RecivedItemlist.quantityRecived == null)
+               {
+                   ordertable.StockId = ODID;
+                   ordertable.QuantityRecived = 0;
+                   ordertable.DiscountPercentage = 0;
+                   ordertable.OrderRecivingDate = null;
+                   ordertable.PackSize = 1;
+                   ordertable.PricePrItem = 0;
+                   ordertable.BatchNO = null;
+                   ordertable.ExpireDays = 0;
+                   ordertable.ExpiryDate = null;
+                   ordertable.ItemSold = 0;
+                   ordertable.QuantityAcepted = 0;
+                   ordertable.SellingPricePrItem = 0;
+               }
+               else
+               {   ordertable.DiscountPercentage = RecivedItemlist.discountPercentage;
+                   ordertable.OrderRecivingDate = RecivedItemlist.orderRecivingDate;
+                   ordertable.PackSize = RecivedItemlist.packSize;
+                   ordertable.PricePrItem = RecivedItemlist.PricePrItem;
+                   var recivingStokList = db.stocks.Where(s => s.orderDetailId == ODID).GroupBy(s2 => s2.batchNO);
+                   if (recivingStokList.Count() > 1)
+                   {
+                       foreach (stock item in recivingStokList)
+                       {
+                           ordertable.StockId = item.stockId;
+                           ordertable.BatchNO = item.batchNO;
+                           ordertable.ExpireDays = item.expireDays;
+                           ordertable.ExpiryDate = item.expiryDate;
+                           ordertable.ItemSold = item.itemSold;
+                           ordertable.QuantityAcepted = item.quantity;
+                           ordertable.SellingPricePrItem = item.sellingPricePrItem;
+                           list.Add(ordertable);
+                       }
+                       break;
+
+                   }
+                   else
+                   {
+                       recivingStokList = null;
+                       var reciving = db.stocks.Where(s => s.orderDetailId == ODID).FirstOrDefault();
+                       ordertable.StockId = reciving.stockId;
+                       ordertable.BatchNO = reciving.batchNO;
+                       ordertable.ExpireDays = reciving.expireDays;
+                       ordertable.ExpiryDate = reciving.expiryDate;
+                       ordertable.ItemSold = reciving.itemSold;
+                       ordertable.QuantityAcepted = reciving.quantity;
+                       ordertable.SellingPricePrItem = reciving.sellingPricePrItem;
+                   }
+
+               }
+                #endregion 
+
+
+                list.Add(ordertable);
+            }
+
+
+
+            return list;
+        }
+
+        public List<OrderReciveStructure> EditForOrderReciveItem(int? id)
+        {
+            List<OrderReciveStructure> list = new List<OrderReciveStructure>();
+            return list;
+        }
+
+        public List<OrderReciveStructure> GetOrderReciveItem(int? id)
+        {
+            List<OrderReciveStructure> list = new List<OrderReciveStructure>();
+            var getItem = db.stocks.Where(s => s.stockId == id).FirstOrDefault();
+            if (getItem == null||getItem.batchNO==null)
+            { //check if orderdetail item
+                getItem = null;
+               var getOItem = db.orderdetails.Where(s => s.orderDetailId == id).FirstOrDefault();
+               OrderReciveStructure orderRecive = new OrderReciveStructure();
+               List< OrderTableStructure> ordertable = new List<OrderTableStructure>();
+                ordertable= GetOrderDetails(getOItem.orderId);
+                foreach (OrderTableStructure o in ordertable)
+                {
+                    if (o.P_o_ID == id)
+                    {
+                        orderRecive.ORDERiD = getOItem.orderId;
+                        orderRecive.CategoryName = o.CategoryName;
+                        orderRecive.ProductName1 = o.ProductName1;
+                        orderRecive.Size = o.Size;
+                        orderRecive.SupplierName = o.SupplierName;                        
+                    }                
+                }                           
+                     orderRecive.BatchNO = null;                    
+                     orderRecive.DiscountPercentage = null;
+                     orderRecive.ExpireDays = null;
+                     orderRecive.ExpiryDate = null;
+                     orderRecive.ItemSold = null;
+                     orderRecive.OrderDetailID = (int)id;
+                     orderRecive.OrderRecivingDate = null;
+                     orderRecive.PackSize = 1;
+                     orderRecive.PricePrItem = null;                   
+                     orderRecive.QuantityAcepted = null;
+                     orderRecive.QuantityOrderd = getOItem.quantityOrderd;
+                     orderRecive.QuantityRecived = null;
+                     orderRecive.SellingPricePrItem = 0;                    
+                     orderRecive.StockId = null;
+                     list.Add(orderRecive);                
+            }
+            else 
+            {
+               List< OrderTableStructure> ordertable = new List<OrderTableStructure>();
+                ordertable= GetOrderDetails(getItem.orderdetail.orderId);
+                OrderReciveStructure orderRecive = new OrderReciveStructure();
+                orderRecive.ORDERiD = getItem.orderdetail.orderId;
+                orderRecive.BatchNO = getItem.batchNO;
+                orderRecive.CategoryName =   ordertable[0].CategoryName;
+                orderRecive.DiscountPercentage = getItem.orderdetail.discountPercentage;
+                orderRecive.ExpireDays = getItem.expireDays ;
+                orderRecive.ExpiryDate = getItem.expiryDate;
+                orderRecive.ItemSold = getItem.itemSold;
+                orderRecive.OrderDetailID = getItem.orderDetailId;
+                orderRecive.OrderRecivingDate = getItem.orderdetail.orderRecivingDate;
+                orderRecive.PackSize = getItem.orderdetail.packSize ;
+                orderRecive.PricePrItem = getItem.orderdetail.PricePrItem;
+                orderRecive.ProductName1 =ordertable[0].ProductName1 ;
+                orderRecive.QuantityAcepted = getItem.quantity;
+                orderRecive.QuantityOrderd = getItem.orderdetail.quantityOrderd;
+                orderRecive.QuantityRecived = getItem.orderdetail.quantityRecived;
+                orderRecive.SellingPricePrItem = getItem.sellingPricePrItem ;
+                orderRecive.Size = ordertable[0].Size;
+                orderRecive.StockId = getItem.stockId;
+                orderRecive.SupplierName = ordertable[0].SupplierName;
+                list.Add(orderRecive);                          
+            }
+            return list;
+        
+        }
+        #endregion 
+
         #region Department
         public List<department> GetDepartments()
         {
@@ -267,10 +448,12 @@ namespace PharmacyManagmentSystem.DAL
             var hashedpassword = Crypto.Hash(Password, "MD5");
             user User = db.users.Where(u=>u.userName ==username && u.password ==hashedpassword ).FirstOrDefault();
             if (User != null && User.enabled == true)
-            {
-               
-                s = "valid user";
-            
+            {            
+               string user_name = User.userName;
+               var user_info=User.employees.Where(us=> us.userName==User.userName).FirstOrDefault();
+               int Emp_ID = user_info.empId;
+               string First_name = user_info.firstName;
+               s = user_name + ","+First_name + ","+Emp_ID.ToString();
             }
             
              return s;
@@ -281,6 +464,9 @@ namespace PharmacyManagmentSystem.DAL
         }
 
         #endregion
+
+
+      
 
         protected override void Dispose(bool disposing)
         {

@@ -24,6 +24,7 @@ namespace PharmacyManagmentSystem.Models
         public System.DateTime orderDate { get; set; }
         public int empId { get; set; }
         public int orderStatusId { get; set; }
+        public string orderNumber { get; set; }
     
         public virtual employee employee { get; set; }
         public virtual orderstatu orderstatu { get; set; }

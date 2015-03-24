@@ -21,18 +21,27 @@ namespace PharmacyManagmentSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignIn(user model, string ReturnUrl)
         {
-            ViewBag.ReturnUrl= pdal.Login(model.userName, model.password);
-           
-            // ViewBag.ReturnUrl = ReturnUrl;
-            return View();
+           string  returnvalue = pdal.Login(model.userName, model.password);
+           if(returnvalue.Equals("invalid"))
+           {
+           ViewBag.ReturnUrl=returnvalue;
+               return View();
+           }
+           char[] delimiterChars = { ',' };
+           string[] list = returnvalue.Split(delimiterChars);
+           this.Session["userName"] = list[0];
+           this.Session["firstName"] = list[1];
+           this.Session["EmpID"] = list[2];
+           this.Session.Timeout = 30;
+           return RedirectToAction("OrderIndex", "OrderAndHistory");          
         }
        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff(user model, string ReturnUrl)
         {
-            pdal.SignOut();
-
+            //pdal.SignOut();
+            this.Session.Abandon();
             return RedirectToAction("Index", "Home");
 
         }
@@ -43,9 +52,7 @@ namespace PharmacyManagmentSystem.Controllers
         
         //}
 
-
-
-
+      
 
 
 	}

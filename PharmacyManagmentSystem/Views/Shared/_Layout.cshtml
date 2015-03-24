@@ -31,8 +31,8 @@
         </div>
     </div>
 
-        <div class="body slide">
-        <aside class="sidebar show perfectScrollbar">
+    <div class="body slide">
+        <aside class="sidebar show perfectScrollbar" style=" width:12%">
             <div id="solso-sidebar">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
@@ -171,19 +171,16 @@
                 </div>
             </div>
         </aside>
-            
 
-    <div class="col-lg-offset-0 container body-content" style="width:auto">
-        @RenderBody()
-        @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>*@
+
+      @*  <div class="col-lg-offset-0 container body-content" style="width:auto">*@
+        <div style="align-content:inherit">
+            @RenderBody()
+        </div>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-            </div>
+           
 </body>
 </html>

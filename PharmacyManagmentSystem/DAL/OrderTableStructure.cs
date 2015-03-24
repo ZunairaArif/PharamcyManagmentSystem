@@ -7,7 +7,7 @@ namespace PharmacyManagmentSystem.DAL
 {
     public class OrderTableStructure
     {
-        int p_o_ID;
+       int p_o_ID;
 
         public int P_o_ID
         {

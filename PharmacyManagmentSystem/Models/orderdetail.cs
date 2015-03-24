@@ -23,12 +23,11 @@ namespace PharmacyManagmentSystem.Models
         public Nullable<int> quantityRecived { get; set; }
         public Nullable<int> quantityOrderd { get; set; }
         public Nullable<System.DateTime> orderRecivingDate { get; set; }
-        public string description { get; set; }
-        public Nullable<double> rate { get; set; }
-        public Nullable<double> discountAmount { get; set; }
-        public Nullable<double> netValue { get; set; }
         public int productSuppliedId { get; set; }
         public int orderId { get; set; }
+        public Nullable<double> PricePrItem { get; set; }
+        public Nullable<double> discountPercentage { get; set; }
+        public Nullable<int> packSize { get; set; }
     
         public virtual ICollection<stock> stocks { get; set; }
         public virtual order order { get; set; }

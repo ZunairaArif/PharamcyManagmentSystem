@@ -7,7 +7,7 @@
 
 @using (Html.BeginForm())
 {
-    var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true);
+    var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: false);
     //var ordr = ViewData["newOrders"];
     <br />
    <br />
@@ -16,26 +16,31 @@
     <br />
   
     <div>
-        <div id="OrderGrid2" style="align-content:center;width:inherit">
+        <div id="orderRecivingGrid">
             @grid.GetHtml(
-             tableStyle: "table table-striped table-bordered table-condensed",
+                tableStyle: "table table-striped table-bordered table-condensed",
                 headerStyle: "header",
-               columns: grid.Columns
-               (grid.Column("Id", "Sr. No"),
-               grid.Column("CategoryName", "Category"),
-               grid.Column("ProductName1", "Product"),
-               grid.Column("Size", "Size"),
-               grid.Column("SupplierName", "Supplier"),
-               grid.Column("Quantity", "Quantity Ordered"),
-               grid.Column(header:"Quentity Recived",format: @<input id="quentityRecive" type="number" style="width:100%" /> ),
-               grid.Column(header: "Quantity Accepted", format: @<input id="quantityAccepted" type="number" style="width:100%" /> ),
-               grid.Column(header: "Price / Item ", format: @<input id="pricePrItem" type="text"  style="width:100%" /> ),
-               grid.Column(header: "Reciveing Date", format: @<input type="text" id="datepicker" class="span2 datepicker" style="width:100%" placeholder="Date..." name="date1"> ),
-               grid.Column(header: "Expire Date", format: @<input type="text" id="datepicker" class="span2 datepicker" style="width:100%" placeholder="Date..." name="date2"> ),
-               grid.Column(header: "Batch No", format: @<input id="batchNo" type="text"  style="width:100%" /> ),
-               grid.Column(header:"Save Item",format: @<a class="btn btn-info" href="~/OrderAndHistory/SaveItem?id=@item.P_o_ID">Save</a>)
-               ), mode: WebGridPagerModes.Numeric)
-        </div>
+            columns: grid.Columns(
+            grid.Column("SrNo", "Sr. No"),
+            grid.Column("CategoryName", "Category"),
+            grid.Column("ProductName1", "Product"),
+            grid.Column("Size", "Size"),
+            grid.Column("SupplierName", "Supplier"),
+            grid.Column("QuantityOrderd", "Quantity Ordered"),
+            grid.Column("QuantityRecived", "Quantity Recived"),
+            grid.Column("OrderRecivingDate", "Reciving Date"),
+            grid.Column("PricePrItem", "price Pr Item"),
+            grid.Column("DiscountPercentage", "Discount %"),
+            grid.Column("PackSize", "pack Size"),
+            grid.Column("QuantityAcepted", "Quantity Acepted"),
+            grid.Column("BatchNO", "Batch#"),
+            grid.Column("ExpiryDate", "Expiry Date"),
+           // grid.Column("SellingPricePrItem", "Selling Price/Item"),
+           // grid.Column("ItemSold", "Item Sold"),
+           // grid.Column("ExpireDays", "Alert Before Expirey (Days)"),
+            grid.Column(header:"Edit Item",format: @<a class="btn btn-info" href="~/OrderAndHistory/EditReciveOrder?id=@item.StockId">Edit</a>)
+         ), mode: WebGridPagerModes.Numeric)
+                    </div>
     </div>
     
 }

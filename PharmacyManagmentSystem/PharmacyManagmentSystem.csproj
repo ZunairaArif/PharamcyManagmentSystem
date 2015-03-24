@@ -137,6 +137,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderAndHistoryController.cs" />
     <Compile Include="DAL\NextOrderStatus.cs" />
+    <Compile Include="DAL\OrderReciveStructure.cs" />
     <Compile Include="DAL\OrderTableStructure.cs" />
     <Compile Include="DAL\PharmacyDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -360,6 +361,7 @@
     <Content Include="Views\Designation\Index.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\OrderAndHistory\ReciveOrder.cshtml" />
+    <Content Include="Views\OrderAndHistory\EditReciveOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

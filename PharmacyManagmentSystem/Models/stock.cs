@@ -24,10 +24,11 @@ namespace PharmacyManagmentSystem.Models
         public int stockId { get; set; }
         public int orderDetailId { get; set; }
         public int quantity { get; set; }
-        public double pricePrItem { get; set; }
-        public int remainingItems { get; set; }
         public string batchNO { get; set; }
         public System.DateTime expiryDate { get; set; }
+        public double sellingPricePrItem { get; set; }
+        public Nullable<int> itemSold { get; set; }
+        public Nullable<int> expireDays { get; set; }
     
         public virtual ICollection<borrowlendstock> borrowlendstocks { get; set; }
         public virtual ICollection<employerstock> employerstocks { get; set; }

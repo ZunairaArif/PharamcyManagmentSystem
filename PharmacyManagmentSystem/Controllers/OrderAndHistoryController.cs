@@ -21,7 +21,7 @@ namespace PharmacyManagmentSystem.Controllers
         public ActionResult Edit(int? id)
         {
              this.Session["OrderID"] = id; // to  set curunt order ID
-             this.Session["EmpID"] = 1; //will be deleted after login mantainens
+             //this.Session["EmpID"] = 1; //will be deleted after login mantainens
              int employeeID = int.Parse(Session["EmpID"].ToString());
             if (id == null)
             {
@@ -54,12 +54,8 @@ namespace PharmacyManagmentSystem.Controllers
             return RedirectToAction("LoadCategory/"+orderID);
         
         }
-        public ActionResult SaveItem(int id)
-        {
-            pdal.SaveItem(id);
-            int? orderID = int.Parse(this.Session["OrderID"].ToString());
-            return RedirectToAction("ReciveOrder/" + orderID);        
-        }
+        
+        
         public ActionResult ReciveOrder(int? id)
         {
             if (id == null)
@@ -67,11 +63,33 @@ namespace PharmacyManagmentSystem.Controllers
                 return HttpNotFound();
             }
             this.Session["OrderID"] = id;
-            List<OrderTableStructure> itemList = pdal.GetOrderDetails(id);
+            List<OrderReciveStructure> itemList = pdal.OrderReciveDisplay(id);
             ViewData["orderItemS"] = itemList;
             return View(ViewData["orderItemS"]);
         }
-      
+        public ActionResult EditReciveOrder(int? id)
+        { //id is orderdeatailId
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<OrderReciveStructure> list = pdal.GetOrderReciveItem((int)id);
+            OrderReciveStructure o = list.FirstOrDefault();
+            ViewData["orderItemS"] = o;
+            return View(ViewData["orderItemS"]);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditReciveOrder([Bind(Include = "ProductName1,CategoryName,Size")] OrderReciveStructure orderItem)
+        {
+            ViewData["orderItemS"]=0;
+            int EmpID = int.Parse(this.Session["EmpID"].ToString());
+            pdal.SaveItem(EmpID, EmpID);
+            int? orderID = int.Parse(this.Session["OrderID"].ToString());
+            return RedirectToAction("ReciveOrder/" + orderID);
+        }
+
         #region Addnewitems
         public ActionResult LoadCategory(int? id)
         {
@@ -131,8 +149,8 @@ namespace PharmacyManagmentSystem.Controllers
        #region Order Part
        public List<PharmacyManagmentSystem.Models.order> getorderEmployee()
        {
-           this.Session["userName"] = "Loged in user";
-           this.Session["EmpID"] = 1; //will be deleted after login mantainens
+           //this.Session["userName"] = "Loged in user";
+          // this.Session["EmpID"] = 1; //will be deleted after login mantainens
            int employeeID = int.Parse(Session["EmpID"].ToString());
            List<PharmacyManagmentSystem.Models.order> list = pdal.getOrderByEmployee(employeeID);
            return list;
@@ -186,13 +204,13 @@ namespace PharmacyManagmentSystem.Controllers
            
         }
        
-        public JsonResult SaveNewOrder(string Date)
+        public JsonResult SaveNewOrder(string Date,string OrderNumber)
         {          
          DateTime newdate=DateTime.Today;
          if (DateTime.TryParse(Date, out newdate))
          {
              int id = int.Parse(this.Session["EmpID"].ToString());
-             pdal.AddNewOrder(newdate,id);
+             pdal.AddNewOrder(newdate,id,OrderNumber );
              return Json("ok");
          }
          return Json("not ok");
