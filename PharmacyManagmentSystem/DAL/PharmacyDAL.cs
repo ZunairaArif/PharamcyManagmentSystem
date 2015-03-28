@@ -32,6 +32,7 @@ namespace PharmacyManagmentSystem.DAL
         {
                  return new SelectList(db.categories, "categoryId", "categoryName");
         }
+
         public SelectList GetProduct(string id)
         {
             var ID = int.Parse(id);
@@ -465,10 +466,34 @@ namespace PharmacyManagmentSystem.DAL
 
         #endregion
 
+       #region Add New Product
+       public void AddNewProductDetails(int id, int size,int supplierID)
+       {
+           productdetail pd = new productdetail();
+           pd.productId = id;
+           pd.productSize = size;
+           db.productdetails.Add(pd);
+           db.SaveChanges();
+           var pro = db.productdetails.Where(p => p.productId == id && p.productSize == size).FirstOrDefault();
+           int proDID = pro.productDetailId;
+           productsupplied PS = new productsupplied();
+           PS.supplierId = supplierID;
+           PS.productDetailId = proDID;
+           db.productsupplieds.Add(PS);
+           db.SaveChanges();
 
-      
 
-        protected override void Dispose(bool disposing)
+       }
+       public SelectList GetSupplier()
+       {
+           return new SelectList(db.suppliers, "supplierId", "supplierName");
+       }
+       #endregion
+
+
+
+
+       protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

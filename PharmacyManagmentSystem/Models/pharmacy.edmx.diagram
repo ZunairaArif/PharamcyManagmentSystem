@@ -51,6 +51,9 @@
         <AssociationConnector Association="pharmacyModel.fk_OrderDetail_Order1" />
         <AssociationConnector Association="pharmacyModel.fk_OrderDetail_ProductSupplied1" />
         <EntityTypeShape EntityType="pharmacyModel.pharmacylog" Width="1.5" PointX="14.75" PointY="11.5" />
+        <EntityTypeShape EntityType="pharmacyModel.productsorderd" Width="1.5" PointX="14.75" PointY="15.125" />
+        <AssociationConnector Association="pharmacyModel.fk_ProductsOrderd_Order1" />
+        <AssociationConnector Association="pharmacyModel.fk_ProductsOrderd_ProductSupplied1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

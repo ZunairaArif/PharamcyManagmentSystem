@@ -47,5 +47,6 @@ namespace PharmacyManagmentSystem.Models
         public DbSet<supplier> suppliers { get; set; }
         public DbSet<user> users { get; set; }
         public DbSet<pharmacylog> pharmacylogs { get; set; }
+        public DbSet<productsorderd> productsorderds { get; set; }
     }
 }

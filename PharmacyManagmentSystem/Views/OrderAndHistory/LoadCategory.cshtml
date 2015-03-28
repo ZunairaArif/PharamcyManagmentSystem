@@ -64,7 +64,7 @@
                 </div>
                 <br />
                 <div>
-                    <button class="btn btn-info" id="AddProductBtn" name="AddProductBtn">Save Product </button>
+                    <button class="btn btn-info btn-sm" id="AddProductBtn" name="AddProductBtn">Save Product </button>
 
                     <br />
                 </div>
@@ -79,7 +79,7 @@
 
 
         <div id="OrderDetails" class=" form-horizontal" style="width:850px;">
-            @Html.ActionLink("Back To Orders", "OrderIndex")
+            @Html.ActionLink("Back To Orders", "OrderIndex", null, new { @class = "btn btn-default btn-sm" })
             <br />
             <br />
             @Html.Label("Ordered Items Detail")
@@ -97,7 +97,7 @@
                grid.Column("Size", "Size"),
                grid.Column("SupplierName", "Supplier"),
                grid.Column("Quantity", "Quantity"),
-               grid.Column(header:"Delete",format: @<a class="btn btn-default" href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID" onclick="javascript:return ConfirmDelete();">Delete</a>)
+               grid.Column(header:"Delete",format: @<a class="btn btn-default btn-sm" href="~/OrderAndHistory/DeleteItem?id=@item.P_o_ID" onclick="javascript:return ConfirmDelete();">Delete</a>)
        ), mode: WebGridPagerModes.Numeric)
             </div>
          

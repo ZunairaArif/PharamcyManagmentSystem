@@ -1,15 +1,18 @@
 ﻿body {
 }
 th {
-    background-color: #3A597A;
-    color: white;
+    background-color:lightgrey;
+    color: #727272;
     font-size: 14px;
     padding-left: 5px;
+    text-align:center;
+
 }
-/*td{
-    color:#CCFFCC;
-}*/
+td{
+    text-align:center;
+}
 table {
+    text-align:center;
     border-spacing:0;
     border-collapse:collapse;
 }
@@ -34,7 +37,7 @@ h2 {
 	}
 
 	body {
-		background: #F5F5F5;
+		background: #F6F6F6;
 		background-image: url('../img/bg.png');
 		color: #222;
 		font-family: 'Dosis', arial;
@@ -145,11 +148,11 @@ h2 {
 		-webkit-transition: margin-left 0.5s;
 	}
 	.body.slide {
-		margin-left: 300px;
+		margin-left: 200px;
 	}
 	.sidebar {
-		background-color: #6595BC;
-		width:300px;
+		background-color:grey;
+		width:200px;
 		height: 100%;
 		padding: 0px; 
 		position: fixed;
@@ -180,10 +183,10 @@ h2 {
 	}
 	
 	.panel-default > .panel-heading {
-		background-color: #6595BC;
+		background-color: grey;
 	}
 	.panel-default > .panel-heading:hover {
-		background-color: #5B86A9;
+		background-color: #989898;
 	}
 	.panel-default > .panel-heading  a {
 		color: #FFF;
@@ -194,10 +197,10 @@ h2 {
 	.list-group-item {
 		padding-left: 25px;
 		border: 0;
-		background: #286090;
+		background:darkgrey;
 	}
 	.list-group-item:hover {
-		background: #365167;
+		background:grey;
         padding-left: 15px;
 		transition-delay: 0s;
         transition-duration: 0.3s;
@@ -208,12 +211,12 @@ h2 {
 		color: #FFF;
 	}
 	a.list-group-item:hover {
-		background: #5881A2;
+		background: #5E5E5E;
 		color: #FFF;
 	}	
 	
 	.solso-active {
-		background: #385269 !important;
+		background: #717171 !important;
 	}
 	
 	.list-group-item.no-border {

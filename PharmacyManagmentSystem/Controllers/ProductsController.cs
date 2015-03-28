@@ -10,88 +10,88 @@ using PharmacyManagmentSystem.Models;
 
 namespace PharmacyManagmentSystem.Controllers
 {
-    public class DesignationController : Controller
+    public class ProductsController : Controller
     {
         private pharmacyEntities db = new pharmacyEntities();
 
-        // GET: /Designation/
+        // GET: products
         public ActionResult Index()
         {
-            var designations = db.designations.Include(d => d.designation2);
-            return View(designations.ToList());
+            var products = db.products.Include(p => p.category);
+            return View(products.ToList());
         }
 
-        // GET: /Designation/Details/5
+        // GET: products/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            designation designation = db.designations.Find(id);
-            if (designation == null)
+            product product = db.products.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(designation);
+            return View(product);
         }
 
-        // GET: /Designation/Create
+        // GET: products/Create
         public ActionResult Create()
         {
-            ViewBag.parentDesignationId = new SelectList(db.designations, "designationId", "designation1");
+            ViewBag.categoryId = new SelectList(db.categories, "categoryId", "categoryName");
             return View();
         }
 
-        // POST: /Designation/Create
+        // POST: products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="designationId,designation1,level,parentDesignationId")] designation designation)
+        public ActionResult Create([Bind(Include = "productId,productName,categoryId")] product product)
         {
             if (ModelState.IsValid)
             {
-                db.designations.Add(designation);
+                db.products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.parentDesignationId = new SelectList(db.designations, "designationId", "designation1", designation.parentDesignationId);
-            return View(designation);
+            ViewBag.categoryId = new SelectList(db.categories, "categoryId", "categoryName", product.categoryId);
+            return View(product);
         }
 
-        // GET: /Designation/Edit/5
+        // GET: products/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            designation designation = db.designations.Find(id);
-            if (designation == null)
+            product product = db.products.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.parentDesignationId = new SelectList(db.designations, "designationId", "designation1", designation.parentDesignationId);
-            return View(designation);
+            ViewBag.categoryId = new SelectList(db.categories, "categoryId", "categoryName", product.categoryId);
+            return View(product);
         }
 
-        // POST: /Designation/Edit/5
+        // POST: products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="designationId,designation1,level,parentDesignationId")] designation designation)
+        public ActionResult Edit([Bind(Include = "productId,productName,categoryId")] product product)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(designation).State = EntityState.Modified;
+                db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.parentDesignationId = new SelectList(db.designations, "designationId", "designation1", designation.parentDesignationId);
-            return View(designation);
+            ViewBag.categoryId = new SelectList(db.categories, "categoryId", "categoryName", product.categoryId);
+            return View(product);
         }
 
         

@@ -1,0 +1,161 @@
+﻿@model PharmacyManagmentSystem.Models.employee
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal row">
+        <h4>employee</h4>
+        <hr />
+        <div class="col-md-6">
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.userName, "userName", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("userName", String.Empty)
+                @Html.ValidationMessageFor(model => model.userName)
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                @Html.ActionLink("Add New User ", "Create", "Users", null, new { @class = "btn btn-info btn-sm" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.firstName)
+                @Html.ValidationMessageFor(model => model.firstName)
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.lastName)
+                    @Html.ValidationMessageFor(model => model.lastName)
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.birthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.birthDate)
+                @Html.ValidationMessageFor(model => model.birthDate)
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.gender)
+                    @Html.ValidationMessageFor(model => model.gender)
+                </div>
+            </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.mobile)
+                @Html.ValidationMessageFor(model => model.mobile)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.address)
+                @Html.ValidationMessageFor(model => model.address)
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-6">
+            <br />
+            <br />
+            <br />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.deleted, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.deleted)
+                    @Html.ValidationMessageFor(model => model.deleted)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.joiningDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.joiningDate)
+                    @Html.ValidationMessageFor(model => model.joiningDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.managerId, "Manager", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("managerId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.managerId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.designationId, "Designation", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("designationId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.designationId)
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    @Html.ActionLink("Add New Designation ", "Create", "Designation", null, new { @class = "btn btn-info btn-sm" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.departmentId, "Department", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("departmentId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.departmentId)
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    @Html.ActionLink("Add New Department", "Create", "Department", null, new { @class = "btn btn-info btn-sm" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.remarks)
+                @Html.ValidationMessageFor(model => model.remarks)
+                </div>
+            </div>
+            <center>
+                <div>
+
+
+                    <input type="submit" value="Create" class="btn btn-primary btn-sm" />
+                    @Html.ActionLink("Employee List", "Index", null, new { @class = "btn btn-primary btn-sm" })
+
+
+                </div>
+            </center>
+
+
+        </div>
+        
+        
+            
+    </div>
+}
+
+
+  
+

@@ -11,6 +11,7 @@ namespace PharmacyManagmentSystem.Models
 {
     using System;
     using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
     
     public partial class user
     {
@@ -19,8 +20,9 @@ namespace PharmacyManagmentSystem.Models
             this.authorities = new HashSet<authority>();
             this.employees = new HashSet<employee>();
         }
-    
+        [Required]
         public string userName { get; set; }
+        [Required]
         public string password { get; set; }
         public bool enabled { get; set; }
     

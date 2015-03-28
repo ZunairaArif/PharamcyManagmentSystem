@@ -1,0 +1,122 @@
+﻿@model PharmacyManagmentSystem.Models.employee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.firstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.birthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.birthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.joiningDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.joiningDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.department.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.department.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.designation.designation1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.designation.designation1)
+        </dd>
+
+        <dt style="font-weight:bold">
+            @Html.Label("Manager")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employee2.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.userName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.empId }, new { @class = "btn btn-info btn-sm" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-sm" })
+</p>

@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "AddProduct";
+}
+
+<h2>Add Product</h2>
+<br/>
+<br />
+@using (Html.BeginForm())
+{ 
+    <div>
+        @Html.Label("select Category")
+
+            @Html.DropDownList("Category", ViewData["Category"] as List<SelectListItem>, "Please select a Category", new { style = "width:250px", @class = "dropdown1" })
+            <label id="ErrorLblCategory"></label>
+        <br />
+    <br />
+    
+        @Html.Label("select Product")
+        @Html.DropDownList("Product", new SelectList(string.Empty, "Value", "Text"), "Please select a product", new { style = "width:250px", @class = "dropdown1" })
+        <label id="ErrorLblProduct"></label>
+        
+       
+    <br/>
+        <br />
+        
+            @Html.Label("Product Size")
+            <input id="ProductSize" type="number" />
+            <label id="ErrorLblQuantity"></label>
+            &nbsp;&nbsp;&nbsp;
+            @Html.Label("Select Supplier")
+
+                @Html.DropDownList("Supplier", ViewData["Supplier"] as List<SelectListItem>, "Please select a Supplier", new { style = "width:250px", @class = "dropdown1" })
+            
+            <label id="ErrorLblSupplier"></label>
+        
+        <br />
+        <label id="errorlable" style="color:#5C7445; font-weight:bold"></label>
+        <br />
+    
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-info btn-sm" id="get-date"> Submit</button>
+            @Html.ActionLink("Back To List", "Index", null, new { @class = "btn btn-default btn-sm" })
+            @Html.ActionLink("Add Supplier", "Create", "Suppliers", null, new { @class = "btn btn-primary btn-sm" })
+        </div>
+    </div>
+}
+
+
+<script src="/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $("#Category").change(function () {
+        $("#Product").empty();
+        $("#ProductSize").empty();
+        $("#Product").append('<option value="' + "0" + '">' + "----select----" + '</option>');
+        $.ajax({
+            type: 'POST', url: '@Url.Action("GetProduct")', dataType: 'json', data: { id: $("#Category").val() },
+            success: function (Products) {
+                $.each(Products, function (i, Product) {
+                    $("#Product").append('<option value="' + Product.Value + '">' + Product.Text + '</option>');
+                });
+                document.getElementById("ErrorLblProduct").innerHTML = " ";
+            },
+            error: function (ex) { document.getElementById("ErrorLblProduct").innerHTML = "please Select a Product"; }
+        });
+        ////////////////////////////////////Get unit of Category on index change\\\\\\\\\\\\\\\\\\\\\\\\\\
+        $.ajax({
+            type: 'POST', url: '@Url.Action("GetUnit")', dataType: 'json', data: { id: $("#Category").val() },
+            success: function (Units) {
+                $.each(Units, function (i, unit) {
+                    document.getElementById("Unit").innerHTML = unit.Text;
+                    document.getElementById("ErrorLblCategory").innerHTML = " ";
+                });
+            },
+            error: function (ex) { document.getElementById("ErrorLblCategory").innerHTML = ""; }
+        });
+        return false;
+    });
+    
+    ////////////////////////////Submit action/////////////
+    $('#get-date').click(function (e) {
+        e.preventDefault();
+        if ($("#ProductSize").val() < 1 || $("#ProductSize").val().length < 1) {
+            document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid Quantity"
+            if ($('#Product :selected').val() < 1 || $('#Product :selected').val() == null) {
+                document.getElementById("ErrorLblProduct").innerHTML = "please select product"
+            }
+            if ($('#Category :selected').val() < 1 || $('#Category :selected').val() == null) {
+                document.getElementById("ErrorLblCategory").innerHTML = "please select Category"
+            }
+            if ($('#Supplier :selected').val() < 1 || $('#Supplier :selected').val() == null) {
+                document.getElementById("ErrorLblSupplier").innerHTML = "please select Supplier"
+            }
+        }
+        else if ($('#Product :selected').val() < 1 || $('#Product :selected').val() == null) {
+            document.getElementById("ErrorLblProduct").innerHTML = "please select product"
+            if ($('#Category :selected').val() < 1 || $('#Category :selected').val() == null) {
+                document.getElementById("ErrorLblCategory").innerHTML = "please select Category"
+            }
+            if ($("#ProductSize").val() < 1 || $("#ProductSize").val().length < 1) {
+                document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid Quantity"
+            }
+            if ($('#Supplier :selected').val() < 1 || $('#Supplier :selected').val() == null) {
+                document.getElementById("ErrorLblSupplier").innerHTML = "please select Supplier"
+            }
+        }
+        else if ($('#Category :selected').val() < 1 || $('#Category :selected').val() == null) {
+            document.getElementById("ErrorLblCategory").innerHTML = "please select Category"
+            if ($("#ProductSize").val() < 1 || $("#ProductSize").val().length < 1) {
+                document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid Quantity"
+            }
+            if ($('#Product :selected').val() < 1 || $('#Product :selected').val() == null) {
+                document.getElementById("ErrorLblProduct").innerHTML = "please select product"
+            }
+            if ($('#Supplier :selected').val() < 1 || $('#Supplier :selected').val() == null) {
+                document.getElementById("ErrorLblSupplier").innerHTML = "please select Supplier"
+            }
+        }
+        else if ($('#Supplier :selected').val() < 1 || $('#Supplier :selected').val() == null) {
+            document.getElementById("ErrorLblSupplier").innerHTML = "please select Supplier"
+            if ($('#Category :selected').val() < 1 || $('#Category :selected').val() == null) {
+                document.getElementById("ErrorLblCategory").innerHTML = "please select Category"
+            }
+                if ($("#ProductSize").val() < 1 || $("#ProductSize").val().length < 1) {
+                    document.getElementById("ErrorLblQuantity").innerHTML = "please  enter a valid Quantity"
+                }
+                if ($('#Product :selected').val() < 1 || $('#Product :selected').val() == null) {
+                    document.getElementById("ErrorLblProduct").innerHTML = "please select product"
+                }
+        }
+        else {
+            //document.getElementById("ErrorLblQuantity").innerHTML = " "
+            //document.getElementById("ErrorLblProduct").innerHTML = " "
+            $.ajax({
+                type: 'POST', url: '@Url.Action("ProductDetails")', dataType: 'json',
+                data: { id: $('#Product :selected').val(), size: $("#ProductSize").val(), supplierID: $("#Supplier").val() },
+                success: function (NewProduct) {
+                    if (NewProduct == "OK") {
+                        document.getElementById('errorlable').innerHTML = "Record Successfully Saved!";
+                        //Response.Redirect("/productdetails/Index");
+                    }
+
+                },
+
+                error: function (ex) { alert("Record not saved"); }
+            });
+        }
+    });
+
+    function Redirect() {
+        Response.Redirect("/productdetails/Index");
+    }
+    </script>
+
+
+
