@@ -3,7 +3,7 @@
     ViewBag.Title = "ReciveOrder";
 }
 
-<h2>Recive Order Form</h2> @Html.ActionLink("Back To Orders", "OrderIndex")
+<h2>Recive Order Form</h2> @Html.ActionLink("Back To Orders", "OrderIndex", null, new { @class = "btn btn-primary btn-sm" })
 
 @using (Html.BeginForm())
 {
@@ -38,7 +38,7 @@
            // grid.Column("SellingPricePrItem", "Selling Price/Item"),
            // grid.Column("ItemSold", "Item Sold"),
            // grid.Column("ExpireDays", "Alert Before Expirey (Days)"),
-            grid.Column(header:"Edit Item",format: @<a class="btn btn-info" href="~/OrderAndHistory/EditReciveOrder?id=@item.StockId">Edit</a>)
+            grid.Column(header:"Edit Item",format: @<a class="btn btn-info btn-sm" href="~/OrderAndHistory/EditReciveOrder?id=@item.StockId">Edit</a>)
          ), mode: WebGridPagerModes.Numeric)
                     </div>
     </div>

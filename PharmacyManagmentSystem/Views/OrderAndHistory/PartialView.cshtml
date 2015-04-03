@@ -1,0 +1,20 @@
+﻿@using (Html.BeginForm())
+{
+    var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true, sortFieldName: "orderDate", ajaxUpdateContainerId: "DataGridOrders");
+
+    <div id="OrderGrid2" style="align-content:center;width:inherit;">
+        @grid.GetHtml(
+             tableStyle: "table table-striped table-bordered table-condensed",
+             headerStyle: "header",
+             columns:
+                               grid.Columns
+                             (grid.Column("orderNumber", "Order Number"),
+                                grid.Column("employee.firstName", "Name"),
+                                 grid.Column("orderDate", "Date"),
+                                 grid.Column("orderstatu.statusName", "Status"),
+                                 grid.Column(format: @<a class="btn btn-info btn-sm" href="~/OrderAndHistory/Edit?id=@item.orderId">Edit</a>),
+                                 grid.Column(format: @<a class="btn btn-primary btn-sm" href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>),
+                                 grid.Column(format: @<a class="btn btn-default btn-sm" href="~/OrderAndHistory/ReciveOrder?id=@item.orderId">Recive Order</a>)
+               ), mode: WebGridPagerModes.Numeric)
+    </div>
+}

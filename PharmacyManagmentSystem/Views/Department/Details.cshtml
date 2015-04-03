@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>department</h4>
+    <h4>department details</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.departmentId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.departmentId }, new { @class = "btn btn-info btn-sm" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-sm" })
 </p>

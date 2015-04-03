@@ -7,7 +7,8 @@
 
  @using (Html.BeginForm())
         {
-         var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true, sortFieldName: "orderDate", ajaxUpdateContainerId: "DataGridOrders");
+     
+         //var grid = new WebGrid(Model, rowsPerPage: 5, canPage: true, canSort: true, sortFieldName: "orderDate", ajaxUpdateContainerId: "DataGridOrders");
          var ordr = ViewData["newOrders"];
          <br />
             <div>
@@ -33,7 +34,7 @@
                         <td><input id="ordernumber" type="text"></td>
                 <td><input type="text" id="datepicker" class="span2 datepicker" placeholder="Date..." name="date"></td>
                 <td>@Html.Label("Draft")</td>
-                                <td><button class="btn btn-info" id="saveOrder">Save Order</button> </td>
+                                <td><button class="btn btn-info btn-sm" id="saveOrder">Save Order</button> </td>
                     </tr>
                 </table>
           </div>
@@ -41,8 +42,13 @@
             <br />
             <br />
             <div>
+   
     <center>
-           <div id="OrderGrid2" style="align-content:center;width:inherit;">
+
+   
+            @Html.Partial("PartialView")
+    
+           @*<div id="OrderGrid2" style="align-content:center;width:inherit;">
              @grid.GetHtml(
              tableStyle: "table table-striped table-bordered table-condensed",
              headerStyle: "header",
@@ -52,11 +58,11 @@
                                 grid.Column("employee.firstName", "Name"),
                                  grid.Column("orderDate", "Date"),
                                  grid.Column("orderstatu.statusName", "Status"),
-                                 grid.Column(format: @<a class="btn btn-info" href="~/OrderAndHistory/Edit?id=@item.orderId">Edit</a>),
-                                 grid.Column(format: @<a class="btn btn-primary" href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>),
-                                 grid.Column(format: @<a class="btn btn-default" href="~/OrderAndHistory/ReciveOrder?id=@item.orderId">Recive Order</a>)
+                                 grid.Column(format: @<a class="btn btn-info btn-sm" href="~/OrderAndHistory/Edit?id=@item.orderId">Edit</a>),
+                                 grid.Column(format: @<a class="btn btn-primary btn-sm" href="~/OrderAndHistory/LoadCategory?id=@item.orderId">View</a>),
+                                 grid.Column(format: @<a class="btn btn-default btn-sm" href="~/OrderAndHistory/ReciveOrder?id=@item.orderId">Recive Order</a>)
                    ), mode: WebGridPagerModes.Numeric)
-                </div>
+                </div>*@
     </center>
               </div>
         }
@@ -84,7 +90,7 @@
                 $.ajax({
                     type: 'POST', url: '@Url.Action("SaveNewOrder")', dataType: 'json', data: { Date: $('#datepicker').val(), OrderNumber: $('#ordernumber').val() },
                     success: function (ok) {
-                        location.reload();
+                    
                         document.getElementById("errorlable").innerHTML = "Order Saved";
                         //$("#OrderGrid2").
                     },

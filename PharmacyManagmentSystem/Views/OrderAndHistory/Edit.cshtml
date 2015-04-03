@@ -3,7 +3,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Edit Order Information</h2>
 @using (Html.BeginForm())
 {
 <br />
@@ -54,10 +54,10 @@
                <textarea id="TxtAreaDisc" rows="5" cols="50" maxlength="250"></textarea>
             </td>
             <td>
-                <button id="saveChangebtn" type="submit" class="btn btn-info">Save Changes</button>
+                <button id="saveChangebtn" type="submit" class="btn btn-info btn-sm">Save Changes</button>
             </td> 
             <td>
-                @Html.ActionLink("Back To Orders", "OrderIndex")
+                @Html.ActionLink("Back To Orders", "OrderIndex", null, new { @class = "btn btn-primary btn-sm" })
             </td> 
         </tr>
     </table>
